@@ -1,0 +1,370 @@
+definitions:
+  models.CreatePaketDataRequest:
+    properties:
+      active_period:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+      quota:
+        type: number
+    type: object
+  models.CreateTransactionRequest:
+    properties:
+      paket_data_id:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  models.CreateUserRequest:
+    properties:
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  models.UpdatePaketDataRequest:
+    properties:
+      active_period:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+      quota:
+        type: number
+    type: object
+  models.UpdateUserRequest:
+    properties:
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phone_number:
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/paket-data:
+    get:
+      description: Ambil semua paket data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get All Paket Data
+      tags:
+      - Paket Data
+    post:
+      consumes:
+      - application/json
+      description: Membuat paket data baru
+      parameters:
+      - description: Create Paket Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreatePaketDataRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create Paket Data
+      tags:
+      - Paket Data
+  /v1/paket-data/{id}:
+    delete:
+      description: Hapus paket data berdasarkan ID
+      parameters:
+      - description: Paket Data ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete Paket Data
+      tags:
+      - Paket Data
+    get:
+      description: Ambil detail paket data berdasarkan ID
+      parameters:
+      - description: Paket Data ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get Paket Data by ID
+      tags:
+      - Paket Data
+    patch:
+      consumes:
+      - application/json
+      description: Update paket data berdasarkan ID
+      parameters:
+      - description: Paket Data ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Paket Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePaketDataRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update Paket Data
+      tags:
+      - Paket Data
+  /v1/transactions:
+    get:
+      description: Ambil semua data transaksi
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get All Transactions
+      tags:
+      - Transactions
+    post:
+      consumes:
+      - application/json
+      description: User membeli paket data
+      parameters:
+      - description: Create Transaction
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateTransactionRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create Transaction
+      tags:
+      - Transactions
+  /v1/transactions/{id}:
+    get:
+      description: Ambil detail transaksi berdasarkan ID
+      parameters:
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get Transaction by ID
+      tags:
+      - Transactions
+  /v1/users:
+    get:
+      description: Retrieve all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get All Users
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Create new user
+      parameters:
+      - description: Create User
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Create User
+      tags:
+      - Users
+  /v1/users/{id}:
+    delete:
+      description: Delete user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete User
+      tags:
+      - Users
+    get:
+      description: Retrieve user detail by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get User by ID
+      tags:
+      - Users
+    patch:
+      consumes:
+      - application/json
+      description: Update user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update User
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update User
+      tags:
+      - Users
+swagger: "2.0"
