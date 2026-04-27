@@ -46,7 +46,7 @@ func (u *transactionUsecase) CreateTransaction(ctx context.Context, req models.C
 		return nil, err
 	}
 
-	// 🔥 INI KUNCINYA
+
 	fullData, err := u.Options.Repository.Transaction.GetByID(ctx, result.ID)
 	if err != nil {
 		return nil, err

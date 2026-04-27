@@ -27,7 +27,7 @@ func (u *userUsecase) CreateUser(ctx context.Context, req models.CreateUserReque
 		return nil, e.NewBadRequestError("phone_number is required")
 	}
 
-	// 🔥 CHECK DUPLICATE
+
 	_, err := u.Options.Repository.User.GetByPhone(ctx, req.PhoneNumber)
 	if err == nil {
 		return nil, e.NewBadRequestError("phone number already exists")
@@ -67,7 +67,7 @@ func (u *userUsecase) UpdateUser(ctx context.Context, req models.UpdateUserReque
 		return nil, e.NewBadRequestError("phone_number is required")
 	}
 
-	// 🔥 CHECK EXIST
+	
 	_, err := u.Options.Repository.User.GetByID(ctx, id)
 	if err != nil {
 		return nil, err
